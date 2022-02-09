@@ -1,0 +1,70 @@
+SAVEGARD OF THE PREVIOUS VERSION OF THE ASSIGNMENT
+
+// =========================
+// B31DG - EMBEDDED SOFTWARE
+// =========================
+// ASSIGNMENT 1 
+// ============
+
+
+// definition of the parameters 
+
+const int a = 9*100; // width of 1st pulse
+const int b = 8*100; // width of space between pulses
+const int c = 1+4; // number of pulses in a block
+const int d = 1*500; // space between pulse blocks
+const int mode = 4;
+
+// definition of the pins
+
+const int signal_B_pin = 21;
+const int signal_A_pin = 15;
+const int button_1 = 22;
+const int button_2 = 23;
+
+void setup() {
+  // signal A and B are outputs
+  pinMode(signal_A_pin, OUTPUT);
+  pinMode(signal_B_pin, OUTPUT);
+  // push buttons are defined on inputs
+  pinMode(button_1,INPUT);
+  pinMode(button_2,INPUT);
+}
+
+void signal_A(){
+  for(int i=0; i<c; i++){
+    digitalWrite(signal_A_pin, HIGH);
+    delayMicroseconds(a+i*50); // time a + 50 µs each iteration in ms
+    digitalWrite(signal_A_pin, LOW);
+    delayMicroseconds(b); // delay of b ms
+  }
+  digitalWrite(signal_A_pin, LOW);
+  delayMicroseconds(d); // wait the time d
+}
+
+void signal_B(){ 
+  digitalWrite(signal_B_pin,HIGH);
+  delayMicroseconds(50);
+  digitalWrite(signal_B_pin,LOW);
+  for(int i=0; i<c; i++){
+    delayMicroseconds(a+i*50);  
+  }
+  delayMicroseconds(d);
+}
+
+void loop() {
+  if(digitalRead(button_1));
+  else{
+    signal_A(); //when the push button 1 is not pushed, keep going to launch the signal A
+  }
+  if(digitalRead(button_2)){
+    signal_B(); // when the push button 2 is pushed, launch the signal B
+    // mode 4
+    int wait = (d+b)/2;
+    if(wait//2){
+      delayMicroseconds(wait);
+  }
+    else{
+      delayMicroseconds(wait-0.5); //to be an int
+    }
+}
